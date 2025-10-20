@@ -1,24 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react';
+import FullScreenTimeline from './components/timelineData';
+import Home from './components/home';
+import '@fontsource/inter/400.css';
+import '@fontsource/inter/700.css';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+const theme = createTheme({
+  typography: {
+    fontFamily: 'Inter, Arial, sans-serif',
+    h2: { fontWeight: 700 },
+    h4: { fontWeight: 600 },
+    h6: { fontWeight: 400 },
+  },
+});
 
 function App() {
+  const [showTimeline, setShowTimeline] = useState(false);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      {showTimeline ? (
+        <FullScreenTimeline />
+      ) : (
+        <Home onEnter={() => setShowTimeline(true)} />
+      )}
+    </ThemeProvider>
   );
 }
 
